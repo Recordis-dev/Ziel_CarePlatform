@@ -97,3 +97,16 @@ El sistema se estructura en 5 módulos centrales interconectados pero desarticul
 3.  **Generación de Reporte ICA:** El agente LangGraph sintetiza los top 3 perfiles con análisis de pros y contras.
 4.  **Selección & NDA:** La familia selecciona a las candidatas; se firman los NDA para desenmascarar los datos personales.
 5.  **Período de Prueba & Retención:** Se inicia el seguimiento de 90 días con micro-encuestas semanales de satisfacción.
+---
+
+## 4. Despliegue en GitHub Pages & CI/CD Workflow
+
+La plataforma cuenta con un pipeline automatizado en GitHub Actions (`.github/workflows/deploy.yml`) para compilación y despliegue continuo en GitHub Pages:
+
+```
+[PUSH TO MAIN] ➔ [GITHUB ACTIONS BUILD (npm run build)] ➔ [DEPLOY TO GITHUB PAGES (dist/)]
+```
+
+### Características de Despliegue
+*   **Enrutador SPA Compatible:** `HashRouter` para garantizar navegación fluida y enlaces compartibles sin dependencias de reescritura en servidor.
+*   **Sitemap & SEO Indexing:** Generación de `sitemap.xml` y `robots.txt` orientados a visibilidad en motores de búsqueda tradicionales y asistentes conversacionales de IA.

@@ -59,3 +59,17 @@ El desarrollo de este sistema nació de la necesidad de resolver una fragmentaci
 
 *   **Completado:** Especificación del modelo de datos, diseño del motor de matching, definición de rutas y matriz de brechas.
 *   **En Proceso:** Creación de los scripts de migración SQL en Supabase y configuración del repositorio monorepo (Turborepo).
+---
+
+## 5. Actualización de Implementación: Despliegue en GitHub Pages & Frontend Single Page App (SPA)
+
+### ADR-004: Frontend Vite + React + TypeScript & Despliegue Automatizado en GitHub Pages
+*   **Contexto:** Se requiere desplegar la plataforma multi-nicho y explorador de arquitectura en GitHub Pages (`main` branch) asegurando soporte completo para rutas profundas, optimización para motores de búsqueda tradicionales y agentes de IA (Generative Engine Optimization - GEO).
+*   **Decisión:**
+    1. Adoptar **Vite + React + TypeScript + Tailwind CSS** con enrutamiento de cliente (`HashRouter`) para evitar errores 404 en GitHub Pages sin servidor de redirección dedicado.
+    2. Configurar la propiedad `base: './'` en `vite.config.ts` permitiendo que los assets estáticos se carguen de forma relativa sin importar el subdominio o repositorio de GitHub.
+    3. Crear una canalización de integración continua vía **GitHub Actions** (`.github/workflows/deploy.yml`) que compila (`npm run build`) y publica la carpeta `dist/` automáticamente en GitHub Pages tras cada *push* a `main`.
+*   **Optimizaciones GEO / AI SEO:**
+    *   Inyección de metadata JSON-LD (Schema.org) en `index.html` describiendo `Organization`, `SoftwareApplication` (AfectoMatch Engine) y `Service`.
+    *   Configuración de `robots.txt` autorizando explícitamente a rastreadores de IA (`GPTBot`, `ClaudeBot`, `PerplexityBot`, `Googlebot`).
+    *   Sitemap XML (`public/sitemap.xml`) y fallback SPA (`public/404.html`).
