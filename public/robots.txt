@@ -1,0 +1,22 @@
+# Robots.txt for ZIEL Care Platform
+User-agent: *
+Allow: /
+Disallow: /admin/
+
+# Explicit permissions for Generative AI search crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+Sitemap: https://ziel-care.github.io/sitemap.xml
