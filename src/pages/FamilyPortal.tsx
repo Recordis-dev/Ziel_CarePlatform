@@ -70,22 +70,22 @@ export const FamilyPortal: React.FC = () => {
                 <div key={cand.id} className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
                   <div className="flex justify-between items-start">
                     <div className="flex items-center space-x-3">
-                      <img src={cand.avatarUrl} alt={cand.masked_name} className="w-12 h-12 rounded-xl object-cover" />
+                      <img src={'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200'} alt={cand.name} className="w-12 h-12 rounded-xl object-cover" />
                       <div>
-                        <h3 className="font-bold text-sm text-white">{cand.masked_name}</h3>
-                        <p className="text-xs text-slate-400">{cand.location}</p>
+                        <h3 className="font-bold text-sm text-white">{cand.name}</h3>
+                        <p className="text-xs text-slate-400">{'Miami, FL'}</p>
                       </div>
                     </div>
                     <div className="text-right bg-slate-950 px-3 py-2 rounded-xl border border-emerald-500/30">
                       <div className="text-[10px] text-slate-400">ICA Score</div>
-                      <div className="text-lg font-bold font-mono text-emerald-400">{cand.ica_score}%</div>
+                      <div className="text-lg font-bold font-mono text-emerald-400">{cand.icaScore}%</div>
                     </div>
                   </div>
 
                   <div className="bg-slate-950 p-3 rounded-xl text-xs space-y-1">
                     <div className="text-slate-400 font-semibold">Pilares Afectivos:</div>
                     <div className="flex flex-wrap gap-1">
-                      {cand.pillars.map((p, i) => (
+                      {cand.pros.map((p, i) => (
                         <span key={i} className="px-2 py-0.5 bg-slate-800 text-slate-300 rounded text-[11px]">{p}</span>
                       ))}
                     </div>
@@ -93,11 +93,11 @@ export const FamilyPortal: React.FC = () => {
 
                   <div className="text-xs text-slate-300 space-y-1">
                     <div className="font-semibold text-emerald-400">Síntesis de Alineación:</div>
-                    <p className="text-slate-400 leading-relaxed">{cand.agent_synthesis.pros[0]}</p>
+                    <p className="text-slate-400 leading-relaxed">{cand.pros[0]}</p>
                   </div>
 
                   <div className="pt-2 flex justify-between items-center border-t border-slate-800">
-                    <span className="text-xs text-slate-500">Certificación: {cand.certifications[0]}</span>
+                    <span className="text-xs text-slate-500">Certificación: {cand.certification}</span>
                     <button
                       onClick={() => setActiveTab('interviews')}
                       className="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-400 text-slate-950 hover:bg-emerald-300"

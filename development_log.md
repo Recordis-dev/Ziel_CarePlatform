@@ -73,3 +73,9 @@ El desarrollo de este sistema nació de la necesidad de resolver una fragmentaci
     *   Inyección de metadata JSON-LD (Schema.org) en `index.html` describiendo `Organization`, `SoftwareApplication` (AfectoMatch Engine) y `Service`.
     *   Configuración de `robots.txt` autorizando explícitamente a rastreadores de IA (`GPTBot`, `ClaudeBot`, `PerplexityBot`, `Googlebot`).
     *   Sitemap XML (`public/sitemap.xml`) y fallback SPA (`public/404.html`).
+
+### ADR-005: Selector Dinámico de Evolución de Marca & Visor de Documentación MD Ad-Hoc
+*   **Contexto:** Se requiere brindar soporte completo para visualizar y alternar en tiempo real entre la versión original v0 MVP y las versiones v1 (Ángulo Áureo 137.5°), v2 (Matriz Pi Alfa-Omega) y v3 (Vesica Piscis - Apapacho), adaptando automáticamente toda la interfaz UI/UX, paleta de colores, geometría, tipografía y branding. Además, se requiere un visor interactivo de documentación Markdown (.md) integrado en la interfaz.
+*   **Decisión:**
+    1. Crear `src/context/BrandContext.tsx` y `src/components/FloatingTools.tsx` implementando un selector emergente discreto (popover / dropup button) en la esquina inferior derecha.
+    2. Crear `src/components/MarkdownModal.tsx` para visualizar cualquier archivo `.md` del repositorio con renderizado dinámico en tiempo real bajo la identidad estética de la versión de marca activa.

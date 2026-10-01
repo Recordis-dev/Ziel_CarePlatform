@@ -75,8 +75,8 @@ export const AdminPortal: React.FC = () => {
                 <tbody className="divide-y divide-slate-800">
                   {MOCK_CANDIDATES.map((cand) => (
                     <tr key={cand.id} className="hover:bg-slate-800/40">
-                      <td className="p-4 font-semibold text-white">{cand.real_name}</td>
-                      <td className="p-4 uppercase text-[10px] text-slate-400">{cand.niche}</td>
+                      <td className="p-4 font-semibold text-white">{cand.name}</td>
+                      <td className="p-4 uppercase text-[10px] text-slate-400">{cand.nicheId}</td>
                       <td className="p-4">
                         <span className="inline-flex items-center text-emerald-400 font-semibold">
                           <CheckCircle className="w-3.5 h-3.5 mr-1" /> Verified 100%
