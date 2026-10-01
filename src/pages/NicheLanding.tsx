@@ -9,8 +9,8 @@ import { NICHES, MOCK_CANDIDATES } from '../data/mockData';
 export const NicheLanding: React.FC = () => {
   const { nicheSlug } = useParams<{ nicheSlug: string }>();
 
-  const niche = Object.values(NICHES).find(n => n.slug === nicheSlug) || NICHES.latino_traditional;
-  const candidates = MOCK_CANDIDATES.filter(c => c.niche === niche.id);
+  const niche = Object.values(NICHES).find(n => n.id === nicheSlug) || NICHES[1];
+  const candidates = MOCK_CANDIDATES.filter(c => c.nicheId === niche.id);
 
   return (
     <div className="bg-slate-950 text-white min-h-screen pb-20">
@@ -34,7 +34,7 @@ export const NicheLanding: React.FC = () => {
                 {niche.name}
               </h1>
               <p className="text-xl text-emerald-300 font-medium">
-                {niche.subtitle}
+                {niche.tagline}
               </p>
               <p className="text-slate-300 text-sm leading-relaxed">
                 {niche.description}
@@ -53,7 +53,7 @@ export const NicheLanding: React.FC = () => {
 
             <div className="lg:col-span-5 relative rounded-2xl overflow-hidden border border-slate-800 shadow-2xl h-72">
               <img
-                src={niche.heroImage}
+                src={'https://images.unsplash.com/photo-1581579438747-1dc8d1e05fec?auto=format&fit=crop&q=80&w=800'}
                 alt={niche.name}
                 className="w-full h-full object-cover"
               />
@@ -71,14 +71,14 @@ export const NicheLanding: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-3">
             <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Target Key Attribute</div>
-            <div className="text-sm font-semibold text-white">{niche.targetAttribute}</div>
+            <div className="text-sm font-semibold text-white">{niche.targetAudience}</div>
             <p className="text-xs text-slate-400">Atributos prioritarios capturados durante el intake psicométrico.</p>
           </div>
 
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-3">
             <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Verificación de Seguridad</div>
             <ul className="space-y-1.5 text-xs text-slate-300">
-              {niche.requiredVerification.map((v, i) => (
+              {niche.keyRequirements.map((v, i) => (
                 <li key={i} className="flex items-center">
                   <ShieldCheck className="w-3.5 h-3.5 mr-1.5 text-emerald-400 flex-shrink-0" />
                   <span>{v}</span>
@@ -89,7 +89,7 @@ export const NicheLanding: React.FC = () => {
 
           <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-3">
             <div className="text-xs font-semibold text-emerald-400 uppercase tracking-wider">Modelo Económico</div>
-            <div className="text-sm font-semibold text-emerald-300">{niche.pricingModel}</div>
+            <div className="text-sm font-semibold text-emerald-300">{niche.pricingInfo}</div>
             <p className="text-xs text-slate-400">Contratación respaldada con garantía de sustitución en 90 días.</p>
           </div>
         </div>
@@ -115,26 +115,26 @@ export const NicheLanding: React.FC = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-800">
                   <div className="flex items-center space-x-4">
                     <img
-                      src={candidate.avatarUrl}
-                      alt={candidate.masked_name}
+                      src={'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=200'}
+                      alt={candidate.name}
                       className="w-16 h-16 rounded-2xl object-cover border-2 border-emerald-500/30"
                     />
                     <div>
                       <div className="flex items-center space-x-2">
-                        <h3 className="font-bold text-lg text-white">{candidate.masked_name}</h3>
-                        {candidate.isMasked && (
+                        <h3 className="font-bold text-lg text-white">{candidate.name}</h3>
+                        {true && (
                           <span className="inline-flex items-center text-[10px] px-2 py-0.5 rounded bg-amber-500/10 text-amber-400 border border-amber-500/20 font-mono">
                             <Lock className="w-3 h-3 mr-1" /> Masked Profile
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-slate-400 mt-0.5">{candidate.location} • {candidate.experience_years} años de experiencia</p>
+                      <p className="text-xs text-slate-400 mt-0.5">{'Miami, FL'} • {candidate.experienceYears} años de experiencia</p>
                     </div>
                   </div>
 
                   <div className="bg-slate-950 p-4 rounded-xl border border-emerald-500/30 text-right sm:text-right">
                     <div className="text-xs text-slate-400 font-medium">Índice ICA Score</div>
-                    <div className="text-2xl font-black text-emerald-400 font-mono">{candidate.ica_score.toFixed(2)}%</div>
+                    <div className="text-2xl font-black text-emerald-400 font-mono">{candidate.icaScore.toFixed(2)}%</div>
                   </div>
                 </div>
 
@@ -142,19 +142,19 @@ export const NicheLanding: React.FC = () => {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
                   <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
                     <div className="text-slate-400">Cultura</div>
-                    <div className="text-base font-bold text-emerald-400 font-mono">{candidate.breakdown.cultural.toFixed(1)}%</div>
+                    <div className="text-base font-bold text-emerald-400 font-mono">{candidate.culturalScore.toFixed(1)}%</div>
                   </div>
                   <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
                     <div className="text-slate-400">EQ / Afectivo</div>
-                    <div className="text-base font-bold text-teal-300 font-mono">{candidate.breakdown.eq.toFixed(1)}%</div>
+                    <div className="text-base font-bold text-teal-300 font-mono">{candidate.emotionalScore.toFixed(1)}%</div>
                   </div>
                   <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
                     <div className="text-slate-400">Operativo</div>
-                    <div className="text-base font-bold text-cyan-300 font-mono">{candidate.breakdown.operational.toFixed(1)}%</div>
+                    <div className="text-base font-bold text-cyan-300 font-mono">{candidate.operationalScore.toFixed(1)}%</div>
                   </div>
                   <div className="bg-slate-950 p-3 rounded-lg border border-slate-800">
                     <div className="text-slate-400">Skills Clínicos</div>
-                    <div className="text-base font-bold text-emerald-400 font-mono">{candidate.breakdown.skills.toFixed(1)}%</div>
+                    <div className="text-base font-bold text-emerald-400 font-mono">{candidate.skillsScore.toFixed(1)}%</div>
                   </div>
                 </div>
 
@@ -169,7 +169,7 @@ export const NicheLanding: React.FC = () => {
                     <div>
                       <div className="font-semibold text-slate-300 mb-1">Pros & Puntos de Alineación:</div>
                       <ul className="space-y-1 text-slate-400">
-                        {candidate.agent_synthesis.pros.map((p, i) => (
+                        {candidate.pros.map((p, i) => (
                           <li key={i} className="flex items-start">
                             <CheckCircle className="w-3.5 h-3.5 text-emerald-400 mr-1.5 flex-shrink-0 mt-0.5" />
                             <span>{p}</span>
@@ -181,7 +181,7 @@ export const NicheLanding: React.FC = () => {
                     <div>
                       <div className="font-semibold text-slate-300 mb-1">Zonas de Atención / Consideraciones:</div>
                       <ul className="space-y-1 text-slate-400">
-                        {candidate.agent_synthesis.cons.map((c, i) => (
+                        {candidate.cons.map((c, i) => (
                           <li key={i} className="flex items-start">
                             <AlertCircle className="w-3.5 h-3.5 text-amber-400 mr-1.5 flex-shrink-0 mt-0.5" />
                             <span>{c}</span>
@@ -193,7 +193,7 @@ export const NicheLanding: React.FC = () => {
 
                   <div className="pt-2 border-t border-slate-800">
                     <div className="text-xs font-semibold text-emerald-300">Pregunta Sugerida para la Entrevista:</div>
-                    <p className="text-xs italic text-slate-300 mt-1">"{candidate.agent_synthesis.interview_question}"</p>
+                    <p className="text-xs italic text-slate-300 mt-1">"{candidate.interviewQuestion}"</p>
                   </div>
                 </div>
 

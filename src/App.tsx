@@ -1,56 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrandProvider } from './context/BrandContext';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
-
+import { FloatingTools } from './components/FloatingTools';
+import { MarkdownModal } from './components/MarkdownModal';
 import { HomeLanding } from './pages/HomeLanding';
 import { NicheLanding } from './pages/NicheLanding';
 import { AcademyLanding } from './pages/AcademyLanding';
 import { PricingPage } from './pages/PricingPage';
+import { BrandbookPage } from './pages/BrandbookPage';
 import { FamilyPortal } from './pages/FamilyPortal';
 import { CaregiverPortal } from './pages/CaregiverPortal';
 import { AdminPortal } from './pages/AdminPortal';
 import { DocsPage } from './pages/DocsPage';
 
-export const App: React.FC = () => {
+export function AppContent() {
+  const [activeDoc, setActiveDoc] = useState<string | null>(null);
+
   return (
     <Router>
-      <div className="flex flex-col min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-emerald-500 selection:text-slate-950">
+      <div className="min-h-screen flex flex-col font-sans antialiased selection:bg-slate-200">
         <Navbar />
-        <main className="flex-grow">
+        <main className="flex-1">
           <Routes>
             <Route path="/" element={<HomeLanding />} />
-
-            <Route path="/:nicheSlug" element={<NicheLanding />} />
-
+            <Route path="/niches" element={<NicheLanding />} />
             <Route path="/academy" element={<AcademyLanding />} />
             <Route path="/pricing" element={<PricingPage />} />
-
-            <Route path="/family/onboarding" element={<FamilyPortal />} />
-            <Route path="/family/dashboard" element={<FamilyPortal />} />
-            <Route path="/family/matches" element={<FamilyPortal />} />
-            <Route path="/family/interviews" element={<FamilyPortal />} />
-            <Route path="/family/payroll" element={<FamilyPortal />} />
-
-            <Route path="/caregiver/onboarding" element={<CaregiverPortal />} />
-            <Route path="/caregiver/academy" element={<CaregiverPortal />} />
-            <Route path="/caregiver/jobs" element={<CaregiverPortal />} />
-            <Route path="/caregiver/isa-status" element={<CaregiverPortal />} />
-
-            <Route path="/admin/candidates" element={<AdminPortal />} />
-            <Route path="/admin/matching-studio" element={<AdminPortal />} />
-            <Route path="/admin/isa-management" element={<AdminPortal />} />
-
-            <Route path="/docs/:docSection" element={<DocsPage />} />
-            <Route path="/docs" element={<Navigate to="/docs/architecture" replace />} />
-
+            <Route path="/brandbook" element={<BrandbookPage />} />
+            <Route path="/portal/family" element={<FamilyPortal />} />
+            <Route path="/portal/caregiver" element={<CaregiverPortal />} />
+            <Route path="/portal/admin" element={<AdminPortal />} />
+            <Route path="/docs" element={<DocsPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
         <Footer />
+
+        {/* Floating discrete version switcher & MD docs trigger */}
+        <FloatingTools onOpenMd={(docName) => setActiveDoc(docName)} />
+
+        {/* Markdown Modal */}
+        <MarkdownModal
+          isOpen={!!activeDoc}
+          docId={activeDoc}
+          onClose={() => setActiveDoc(null)}
+        />
       </div>
     </Router>
   );
-};
+}
+
+export function App() {
+  return (
+    <BrandProvider>
+      <AppContent />
+    </BrandProvider>
+  );
+}
 
 export default App;
